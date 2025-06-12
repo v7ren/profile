@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;Ren/&gt;- Cybersecurity Professional Portfolio</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-bg: #F2F2F2; /* Main background */
+            --secondary-bg: #EAE4D5; /* Section alternate background */
+            --accent: #B6B09F; /* Accent color */
+            --card-bg: #FFFFFF; /* Card background */
+            --text-main: #000000; /* Main text color */
+            --text-secondary: rgba(0,0,0,0.8);
+            --text-muted: rgba(0,0,0,0.6);
+            --gradient-primary: linear-gradient(135deg, #F2F2F2 0%, #EAE4D5 100%);
+            --gradient-accent: linear-gradient(135deg, #B6B09F 0%, #EAE4D5 100%);
+            --border-radius: 16px;
+            --box-shadow: 0 4px 24px rgba(182, 176, 159, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F2F2F2 0%, #EAE4D5 50%, #B6B09F 100%);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-accent);
+        }
+
+        ::selection {
+            background: rgba(182, 176, 159, 0.2);
+            color: var(--text-main);
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform-origin: left;
+            z-index: 1000;
+            transform: scaleX(0);
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--text-main);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(242, 242, 242, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid #B6B09F;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(182, 176, 159, 0.15);
+            color: var(--text-main);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #F2F2F2;
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-bottom: 1px solid #B6B09F;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(182, 176, 159, 0.15);
+            color: var(--text-main);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: var(--gradient-primary);
+            color: var(--text-main);
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(148, 137, 121, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+        .shape-2 { width: 60px; height: 60px; top: 60%; left: 80%; animation-delay: 1s; }
+        .shape-3 { width: 120px; height: 120px; top: 80%; left: 20%; animation-delay: 2s; }
+        .shape-4 { width: 40px; height: 40px; top: 30%; right: 20%; animation-delay: 3s; }
+        .shape-5 { width: 100px; height: 100px; top: 10%; right: 40%; animation-delay: 4s; }
+        .shape-6 { width: 70px; height: 70px; bottom: 20%; right: 10%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            perspective: 1000px;
+            color: var(--text-main);
+            -webkit-text-fill-color: unset;
+            background: linear-gradient(135deg, #000000 0%, #B6B09F 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .name-chinese {
+            color: var(--text-main);
+            font-size: 0.6em;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .word {
+            display: inline-block;
+            margin-right: 0.3em;
+            transform-origin: 50% 100%;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            color: var(--text-secondary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary, .cta-secondary {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-primary {
+            background: var(--gradient-accent);
+            color: var(--text-main);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(182, 176, 159, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--accent);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(182, 176, 159, 0.15);
+            color: var(--text-main);
+        }
+
+        .code-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .code-block {
+            background: #FFFFFF;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid #EAE4D5;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #F2F2F2;
+            border-bottom: 1px solid #EAE4D5;
+        }
+
+        .dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+
+        .dots span:nth-child(2) { background: #ffbd2e; }
+        .dots span:nth-child(3) { background: var(--accent); }
+
+        .filename {
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 0;
+            background: transparent !important;
+            color: var(--text-main);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: #FFFFFF;
+            border-radius: 15px;
+            border: 1px solid #B6B09F;
+            color: var(--text-main);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Certifications Section */
+        .certifications-section {
+            padding: 8rem 0;
+            background: transparent !important;
+            color: var(--text-main);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: unset;
+            background-clip: text;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid #B6B09F;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(148, 137, 121, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cert-card:hover::before {
+            left: 100%;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(34, 40, 49, 0.3);
+            border-color: var(--accent);
+        }
+
+        .cert-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .cert-info h3 {
+            color: var(--text-main);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cert-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .cert-verify {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cert-verify:hover {
+            color: var(--text-main);
+            transform: translateX(5px);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 8rem 0;
+            background: transparent !important;
+            color: var(--text-main);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-item {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid #B6B09F;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(34, 40, 49, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            min-width: 60px;
+        }
+
+        .skill-info {
+            flex: 1;
+        }
+
+        .skill-info h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .skill-bar {
+            background: #EAE4D5;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-progress {
+            background: var(--gradient-accent);
+            height: 100%;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            width: 0%;
+            transition: width 1.5s ease;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .skill-percentage {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 8rem 0;
+            background: transparent !important;
+            color: var(--text-main);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: #FFFFFF;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            perspective: 1000px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 1px solid #B6B09F;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(34, 40, 49, 0.4);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image i {
+            font-size: 4rem;
+            color: var(--text-main);
+            opacity: 0.7;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(34, 40, 49, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(148, 137, 121, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+            color: var(--text-main);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .project-content p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .link-demo, .link-github {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .link-demo {
+            background: var(--gradient-accent);
+            color: var(--text-main);
+        }
+
+        .link-github {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .link-demo:hover, .link-github:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(182, 176, 159, 0.15);
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #F2F2F2;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        .loading-logo {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #000;
+            font-family: 'JetBrains Mono', monospace;
+            opacity: 0;
+            animation: logoFadeIn 1s ease 0.5s forwards;
+        }
+        .loading-spinner-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        .loading-spinner {
+            width: 120px;
+            height: 120px;
+            border: 3px solid transparent;
+            border-top: 3px solid #B6B09F;
+            border-right: 3px solid #B6B09F;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            position: relative;
+        }
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 2px solid transparent;
+            border-top: 2px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite reverse;
+        }
+        .loading-spinner::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid transparent;
+            border-top: 1px solid #B6B09F;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .loading-text {
+            color: #393E46;
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0;
+            animation: textFadeIn 1s ease 1s forwards;
+        }
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: #EAE4D5;
+            border-radius: 2px;
+            overflow: hidden;
+            opacity: 0;
+            animation: progressFadeIn 1s ease 1.5s forwards;
+        }
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #B6B09F 0%, #EAE4D5 100%);
+            width: 0%;
+            border-radius: 2px;
+            animation: progressFill 2s ease 1.8s forwards;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes logoFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+            from { transform: translateY(-20px); }
+        }
+        @keyframes textFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+            from { transform: translateY(10px); }
+        }
+        @keyframes progressFadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes progressFill {
+            to { width: 100%; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .custom-cursor,
+            .cursor-follower {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content,
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .floating-shapes {
+                display: none;
+            }
+
+            .skills-grid,
+            .projects-grid,
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- Floating Social Icons --- */
+        .floating-socials {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: #EAE4D5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            text-decoration: none;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid #B6B09F;
+            font-size: 1.5rem;
+        }
+
+        .social-icon:hover {
+            background: #B6B09F;
+            color: #fff;
+            transform: translateX(10px) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .floating-socials {
+                display: none;
+            }
+        }
+
+        /* --- Timeline Section --- */
+        .timeline-section {
+            padding: 8rem 0;
+            background: transparent !important;
+        }
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #B6B09F;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 2rem;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 2rem;
+        }
+        .timeline-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #B6B09F;
+            position: relative;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(182, 176, 159, 0.18);
+        }
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #B6B09F;
+            border-radius: 50%;
+            top: 2rem;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+        .timeline-date {
+            color: #B6B09F;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #000;
+        }
+        .timeline-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 3rem !important;
+                padding-right: 0 !important;
+            }
+            .timeline-dot {
+                left: 10px !important;
+            }
+        }
+        /* Music Player Styles */
+            .music-player {
+                position: fixed;
+                bottom: 2rem;
+                left: 2rem;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid #B6B09F;
+                border-radius: 20px;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                min-width: 400px;
+                z-index: 1000;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                transform: translateY(100px);
+                opacity: 0;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .music-player.visible {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .music-player.minimized {
+                min-width: auto;
+                padding: 0.5rem;
+            }
+
+            .music-player.minimized .player-info,
+            .music-player.minimized .music-visualizer,
+            .music-player.minimized .volume-container {
+                display: none;
+            }
+
+            .player-toggle {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: none;
+                background: var(--gradient-accent);
+                color: #000;
+                font-size: 1.2rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .player-toggle:hover {
+                transform: scale(1.1);
+                box-shadow: 0 5px 15px rgba(182, 176, 159, 0.3);
+            }
+
+            .player-toggle.playing {
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+
+            .player-info {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .song-title {
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: #000;
+                margin-bottom: 0.2rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .song-artist {
+                font-size: 0.8rem;
+                color: var(--text-secondary);
+                margin-bottom: 0.5rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .progress-container {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .time-display {
+                font-size: 0.7rem;
+                color: var(--text-secondary);
+                font-family: 'JetBrains Mono', monospace;
+                min-width: 30px;
+            }
+
+            .progress-bar {
+                flex: 1;
+                height: 4px;
+                background: #EAE4D5;
+                border-radius: 2px;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .progress-fill {
+                height: 100%;
+                background: var(--gradient-accent);
+                border-radius: 2px;
+                width: 0%;
+                transition: width 0.1s ease;
+            }
+
+            .music-visualizer {
+                display: flex;
+                align-items: end;
+                gap: 2px;
+                height: 30px;
+            }
+
+            .visualizer-bar {
+                width: 3px;
+                background: var(--gradient-accent);
+                border-radius: 2px;
+                animation: visualize 0.8s ease-in-out infinite alternate;
+            }
+
+            .visualizer-bar:nth-child(1) { animation-delay: 0s; }
+            .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
+            .visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+            .visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
+            .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
+
+            @keyframes visualize {
+                0% { height: 5px; }
+                100% { height: 25px; }
+            }
+
+            .volume-container {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .volume-icon {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                cursor: pointer;
+            }
+
+            .volume-bar {
+                width: 60px;
+                height: 4px;
+                background: #EAE4D5;
+                border-radius: 2px;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .volume-fill {
+                height: 100%;
+                background: var(--gradient-accent);
+                border-radius: 2px;
+                width: 70%;
+                transition: width 0.1s ease;
+            }
+
+            .minimize-btn {
+                width: 30px;
+                height: 30px;
+                border: none;
+                background: transparent;
+                color: var(--text-secondary);
+                cursor: pointer;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .minimize-btn:hover {
+                background: #EAE4D5;
+                color: #000;
+            }
+
+            @media (max-width: 768px) {
+                .music-player {
+                    left: 1rem;
+                    right: 1rem;
+                    bottom: 1rem;
+                    min-width: auto;
+                }
+
+                .music-player .player-info {
+                    max-width: 120px;
+                }
+
+                .volume-container {
+                    display: none;
+                }
+            }
+
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-container">
+            <div class="loading-logo">&lt;Ren/&gt;</div>
+            <div class="loading-spinner-container">
+                <div class="loading-spinner"></div>
+            </div>
+            <div class="loading-text">Initializing Security Protocols...</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <button class="player-toggle" id="playToggle">
+            <i class="fas fa-play" id="playIcon"></i>
+        </button>
+        
+        <div class="player-info">
+            <div class="song-title" id="songTitle">Portfolio Theme</div>
+            <div class="song-artist" id="songArtist">Cybersecurity Vibes</div>
+            <div class="progress-container">
+                <span class="time-display" id="currentTime">0:00</span>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="time-display" id="totalTime">0:00</span>
+            </div>
+        </div>
+
+        <div class="music-visualizer" id="visualizer" style="display: none;">
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+            <div class="visualizer-bar"></div>
+        </div>
+
+        <div class="volume-container">
+            <i class="fas fa-volume-up volume-icon" id="volumeIcon"></i>
+            <div class="volume-bar" id="volumeBar">
+                <div class="volume-fill" id="volumeFill"></div>
+            </div>
+        </div>
+
+        <button class="minimize-btn" id="minimizeBtn">
+            <i class="fas fa-minus"></i>
+        </button>
+
+        <!-- Hidden audio element -->
+        <audio id="audioPlayer" preload="metadata">
+            <source src="music.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#hero" class="logo">&lt;Ren/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="#hero">首頁</a></li>
+                <li><a href="#about">關於我</a></li>
+                <li><a href="#certifications">證照</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">專案</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#hero">首頁</a></li>
+                <li><a href="#about">關於我</a></li>
+                <li><a href="#certifications">證照</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">專案</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-background">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+                <div class="shape shape-6"></div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title" id="heroTitle">
+                        <span class="name-chinese">吳哲翰</span>
+
+                    </h1>
+                    <p class="hero-subtitle" id="heroSubtitle">
+                        Google 證照 • 資安學習者 • 開發者
+                    </p>
+                    <p class="hero-description" id="heroDescription">
+                        熱愛資安與駭客技術，目前正攻讀 Google Cybersecurity Professional Certificate，並持續開發安全工具與研究漏洞。希望用程式碼守護數位世界。
+                    </p>
+                    <div class="hero-buttons" id="heroButtons">
+                        <a href="#projects" class="cta-primary">
+                            <span>查看我的專案</span>
+                            <i class="fas fa-code"></i>
+                        </a>
+                        <a href="https://github.com/xireno" target="_blank" class="cta-secondary">
+                            <span>GitHub 個人頁</span>
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual" id="heroVisual">
+                    <div class="code-container">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <div class="dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <span class="filename">endpoint_scanner.py</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code>def scan_endpoint(target):
+    ports = scan_ports(target)
+    vulnerabilities = check_vulns(ports)
+    return generate_report(vulnerabilities)</code></pre>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <div class="dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <span class="filename">vmc2_exploit.py</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code># VMware vCenter Server RCE
+payload = craft_payload(target)
+exploit_rce(payload)
+print("Shell obtained!")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title" id="aboutTitle">自我介紹</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>大家好，我是<strong>吳哲翰</strong>，也可以叫我 <strong>Ren</strong> 或 <strong>renestj</strong>。</p>
+                    <h3>教育背景</h3>
+                    <p>目前就讀於<strong>國立虎尾科技大學資訊工程系五專二年級</strong>。</p>
+                    <h3>語言能力</h3>
+                    <ul>
+                        <li>英文：TOEIC 880分，平時習慣使用英文學習和查閱技術資料</li>
+                        <li>中文：母語</li>
+                    </ul>
+                    <h3>學習經歷</h3>
+                    <p>對網路安全有興趣，陸續完成了一些Google的線上課程：</p>
+                    <ul>
+                        <li>網路安全基礎 (2024年8月)</li>
+                        <li>安全風險管理 (2024年9月)</li>
+                        <li>網路與網路安全 (2024年10月)</li>
+                        <li>Linux與SQL工具 (2025年2月)</li>
+                        <li>資產、威脅與弱點分析 (2025年3月)</li>
+                    </ul>
+                    <h3>技術學習</h3>
+                    <ul>
+                        <li><strong>程式語言</strong>：主要使用Java和Python</li>
+                        <li><strong>開發項目</strong>：Discord機器人開發、一些簡單的系統管理工具</li>
+                        <li><strong>正在學習</strong>：網路安全相關技術和工具</li>
+                        <li><strong>學習資源</strong>：主要透過英文資料和國外技術文件學習</li>
+                    </ul>
+                    <h3>目前狀況</h3>
+                    <p>還在學習階段，希望能在資訊工程和網路安全領域持續成長。由於英文能力不錯，能直接閱讀原文技術文件和參與國際開源社群，這對學習新技術很有幫助。</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="githubStars">20</span>
+                        <span class="stat-label"><i class="fab fa-github"></i> Stars</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="githubCommits">47</span>
+                        <span class="stat-label"><i class="fas fa-code"></i> Commits</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="projectCount">3</span>
+                        <span class="stat-label"><i class="fas fa-folder-open"></i> Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">880</span>
+                        <span class="stat-label"><i class="fas fa-certificate"></i> TOEIC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications-section">
+        <div class="container">
+            <h2 class="section-title" id="certificationsTitle">Google 資安證照</h2>
+            
+            <div class="certifications-grid" id="certificationsGrid">
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div class="cert-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>資安基礎</h3>
+                            <div class="cert-date">完成：2024年8月</div>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        介紹資安基本原理、框架與業界最佳實踐。內容涵蓋 CIA 三元組、安全控制與威脅分析。
+                    </div>
+                    <a href="https://coursera.org/verify/EDH0MZA0RASJ" target="_blank" class="cert-verify">
+                        <i class="fas fa-external-link-alt"></i>
+                        驗證證書
+                    </a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div class="cert-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>安全風險管理</h3>
+                            <div class="cert-date">完成：2024年9月</div>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        進階風險管理策略、安全稽核與合規框架。專注於 NIST 框架、風險評估與安全控制。
+                    </div>
+                    <a href="https://coursera.org/verify/LGY37OEXMC3H" target="_blank" class="cert-verify">
+                        <i class="fas fa-external-link-alt"></i>
+                        驗證證書
+                    </a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div class="cert-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>網路與網路安全</h3>
+                            <div class="cert-date">完成：2024年10月</div>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        網路安全協定、防火牆設定與入侵偵測。內容涵蓋 TCP/IP、VPN、網路監控與事件回應。
+                    </div>
+                    <a href="https://coursera.org/verify/X0OIMUEB3Q1C" target="_blank" class="cert-verify">
+                        <i class="fas fa-external-link-alt"></i>
+                        驗證證書
+                    </a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div class="cert-icon">
+                            <i class="fab fa-linux"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>Linux 與 SQL 工具</h3>
+                            <div class="cert-date">完成：2025年2月</div>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        Linux 指令、SQL 資料庫安全與系統管理。實作資安工具、日誌分析與查詢優化。
+                    </div>
+                    <a href="https://coursera.org/verify/V1BXMT8L5QGY" target="_blank" class="cert-verify">
+                        <i class="fas fa-external-link-alt"></i>
+                        驗證證書
+                    </a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div class="cert-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>資產、威脅與弱點分析</h3>
+                            <div class="cert-date">完成：2025年3月</div>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        弱點評估、威脅建模與資產管理。進階滲透測試、掃描與弱點修補。
+                    </div>
+                    <a href="https://coursera.org/verify/AN7EQQRIBYAK" target="_blank" class="cert-verify">
+                        <i class="fas fa-external-link-alt"></i>
+                        驗證證書
+                    </a>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div class="cert-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="cert-info">
+                            <h3>Google 資安專業證書</h3>
+                            <div class="cert-date">進行中 - 預計2025年6月</div>
+                        </div>
+                    </div>
+                    <div class="cert-description">
+                        完整 Google 資安專業證書課程，涵蓋資安營運、事件回應與進階威脅偵測。
+                    </div>
+                    <a href="#" class="cert-verify">
+                        <i class="fas fa-clock"></i>
+                        進行中
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title" id="skillsTitle">技術技能與專長</h2>
+            
+            <div class="skills-grid" id="skillsGrid">
+                <div class="skill-item" data-skill="90">
+                    <div class="skill-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="skill-info">
+                        <h3>網路安全</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress"></div>
+                        </div>
+                        <span class="skill-percentage">90%</span>
+                    </div>
+                </div>
+
+                <div class="skill-item" data-skill="85">
+                    <div class="skill-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="skill-info">
+                        <h3>弱點評估</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress"></div>
+                        </div>
+                        <span class="skill-percentage">85%</span>
+                    </div>
+                </div>
+
+                <div class="skill-item" data-skill="88">
+                    <div class="skill-icon">
+                        <i class="fab fa-linux"></i>
+                    </div>
+                    <div class="skill-info">
+                        <h3>Linux 系統管理</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress"></div>
+                        </div>
+                        <span class="skill-percentage">88%</span>
+                    </div>
+                </div>
+
+                <div class="skill-item" data-skill="92">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="skill-info">
+                        <h3>Python 程式設計</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress"></div>
+                        </div>
+                        <span class="skill-percentage">92%</span>
+                    </div>
+                </div>
+
+                <div class="skill-item" data-skill="80">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="skill-info">
+                        <h3>SQL 與資料庫安全</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress"></div>
+                        </div>
+                        <span class="skill-percentage">80%</span>
+                    </div>
+                </div>
+
+                <div class="skill-item" data-skill="75">
+                    <div class="skill-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="skill-info">
+                        <h3>滲透測試</h3>
+                        <div class="skill-bar">
+                            <div class="skill-progress"></div>
+                        </div>
+                        <span class="skill-percentage">75%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-title" id="projectsTitle">精選資安專案</h2>
+            
+            <div class="projects-grid" id="projectsGrid">
+                <!-- VMC2 Project -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-server"></i>
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">病毒惡意程式</span>
+                                <span class="tech-tag">資安</span>
+                                <span class="tech-tag">RCE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>VMC2 - RCE 反向終端</h3>
+                        <p>VMC2（Virus Malware Command & Control）是一款用於資安研究與滲透測試的遠端程式執行（RCE）反向終端工具，適合在受控環境下展示與測試 RCE 技術。</p>
+                        <div class="project-links">
+                            <a href="https://github.com/xireno/vmc2" target="_blank" class="link-github">
+                                <i class="fab fa-github"></i> 前往 GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Endpoint Discovery Project -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-search"></i>
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">網路</span>
+                                <span class="tech-tag">自動化</span>
+                                <span class="tech-tag">資安</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Endpoint Discovery</h3>
+                        <p>多階段 API 端點自動發現工具，能以多種偵測技術自動尋找 API 端點，支援多執行緒掃描、服務偵測與完整報告。</p>
+                        <div class="project-links">
+                            <a href="https://github.com/xireno/endpoint-scanner" target="_blank" class="link-github">
+                                <i class="fab fa-github"></i> 前往 GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discord Bot Template Project -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fab fa-discord"></i>
+                        <div class="project-overlay">
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Discord.py</span>
+                                <span class="tech-tag">Bot</span>
+                                <span class="tech-tag">Asyncio</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Discord Bot 範本</h3>
+                        <p>多功能 Discord 機器人範本，具備用戶驗證、防垃圾訊息與伺服器監控等安全功能，方便快速客製化與部署。</p>
+                        <div class="project-links">
+                            <a href="https://github.com/xireno/discord-bot-template" target="_blank" class="link-github">
+                                <i class="fab fa-github"></i> 前往 GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Social Icons -->
+    <div class="floating-socials">
+        <a href="https://github.com/xireno" class="social-icon" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com" class="social-icon" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com" class="social-icon" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:your@email.com" class="social-icon" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Register GSAP plugins
+            gsap.registerPlugin(ScrollTrigger, TextPlugin);
+        
+            // Global variables
+            let $cursor = $('#cursor');
+            let $cursorFollower = $('#cursorFollower');
+            let $navbar = $('#navbar');
+            let $scrollProgress = $('#scrollProgress');
+            let $mobileMenuBtn = $('#mobileMenuBtn');
+            let $mobileMenu = $('#mobileMenu');
+        
+            // Music Player Class
+            class MusicPlayer {
+                constructor() {
+                    this.audio = document.getElementById('audioPlayer');
+                    this.playToggle = document.getElementById('playToggle');
+                    this.playIcon = document.getElementById('playIcon');
+                    this.progressBar = document.getElementById('progressBar');
+                    this.progressFill = document.getElementById('progressFill');
+                    this.currentTime = document.getElementById('currentTime');
+                    this.totalTime = document.getElementById('totalTime');
+                    this.volumeBar = document.getElementById('volumeBar');
+                    this.volumeFill = document.getElementById('volumeFill');
+                    this.volumeIcon = document.getElementById('volumeIcon');
+                    this.minimizeBtn = document.getElementById('minimizeBtn');
+                    this.musicPlayer = document.getElementById('musicPlayer');
+                    this.visualizer = document.getElementById('visualizer');
+                    
+                    this.isPlaying = false;
+                    this.isMinimized = false;
+                    this.currentVolume = 0.7;
+                    
+                    this.init();
+                }
+        
+                init() {
+                    // Set initial volume
+                    this.audio.volume = this.currentVolume;
+                    this.updateVolumeDisplay();
+        
+                    // Event listeners
+                    this.playToggle.addEventListener('click', () => this.togglePlay());
+                    this.minimizeBtn.addEventListener('click', () => this.toggleMinimize());
+                    
+                    this.progressBar.addEventListener('click', (e) => this.setProgress(e));
+                    this.volumeBar.addEventListener('click', (e) => this.setVolume(e));
+                    
+                    this.audio.addEventListener('timeupdate', () => this.updateProgress());
+                    this.audio.addEventListener('loadedmetadata', () => this.updateDuration());
+                    this.audio.addEventListener('ended', () => this.onTrackEnd());
+        
+                    // Simulate audio for demo (since we don't have actual audio file)
+                    this.simulateAudio();
+                }
+        
+                simulateAudio() {
+                    // For demo purposes, simulate audio playback
+                    this.totalTime.textContent = '3:42';
+                    this.simulatedCurrentTime = 0;
+                    this.simulatedDuration = 222; // 3:42 in seconds
+                }
+        
+                togglePlay() {
+                    if (this.isPlaying) {
+                        this.pause();
+                    } else {
+                        this.play();
+                    }
+                }
+        
+                play() {
+                    this.isPlaying = true;
+                    this.playIcon.className = 'fas fa-pause';
+                    this.playToggle.classList.add('playing');
+                    this.visualizer.style.display = 'flex';
+                    
+                    // Simulate playback for demo
+                    this.simulatePlayback();
+                    
+                    // Try to play actual audio (will fail silently if no file)
+                    this.audio.play().catch(() => {});
+                }
+        
+                pause() {
+                    this.isPlaying = false;
+                    this.playIcon.className = 'fas fa-play';
+                    this.playToggle.classList.remove('playing');
+                    this.visualizer.style.display = 'none';
+                    
+                    clearInterval(this.playbackInterval);
+                    this.audio.pause();
+                }
+        
+                simulatePlayback() {
+                    this.playbackInterval = setInterval(() => {
+                        if (this.simulatedCurrentTime < this.simulatedDuration) {
+                            this.simulatedCurrentTime += 1;
+                            this.updateSimulatedProgress();
+                        } else {
+                            this.onTrackEnd();
+                        }
+                    }, 1000);
+                }
+        
+                updateSimulatedProgress() {
+                    const progress = (this.simulatedCurrentTime / this.simulatedDuration) * 100;
+                    this.progressFill.style.width = progress + '%';
+                    this.currentTime.textContent = this.formatTime(this.simulatedCurrentTime);
+                }
+        
+                setProgress(e) {
+                    const rect = this.progressBar.getBoundingClientRect();
+                    const percent = (e.clientX - rect.left) / rect.width;
+                    this.simulatedCurrentTime = percent * this.simulatedDuration;
+                    this.audio.currentTime = percent * this.audio.duration;
+                    this.updateSimulatedProgress();
+                }
+        
+                setVolume(e) {
+                    const rect = this.volumeBar.getBoundingClientRect();
+                    const percent = (e.clientX - rect.left) / rect.width;
+                    this.currentVolume = Math.max(0, Math.min(1, percent));
+                    this.audio.volume = this.currentVolume;
+                    this.updateVolumeDisplay();
+                }
+        
+                updateVolumeDisplay() {
+                    this.volumeFill.style.width = (this.currentVolume * 100) + '%';
+                    
+                    if (this.currentVolume === 0) {
+                        this.volumeIcon.className = 'fas fa-volume-mute volume-icon';
+                    } else if (this.currentVolume < 0.5) {
+                        this.volumeIcon.className = 'fas fa-volume-down volume-icon';
+                    } else {
+                        this.volumeIcon.className = 'fas fa-volume-up volume-icon';
+                    }
+                }
+        
+                updateProgress() {
+                    if (this.audio.duration) {
+                        const progress = (this.audio.currentTime / this.audio.duration) * 100;
+                        this.progressFill.style.width = progress + '%';
+                        this.currentTime.textContent = this.formatTime(this.audio.currentTime);
+                    }
+                }
+        
+                updateDuration() {
+                    this.totalTime.textContent = this.formatTime(this.audio.duration);
+                }
+        
+                formatTime(seconds) {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins}:${secs.toString().padStart(2, '0')}`;
+                }
+        
+                toggleMinimize() {
+                    this.isMinimized = !this.isMinimized;
+                    this.musicPlayer.classList.toggle('minimized', this.isMinimized);
+                    
+                    const icon = this.minimizeBtn.querySelector('i');
+                    icon.className = this.isMinimized ? 'fas fa-plus' : 'fas fa-minus';
+                }
+        
+                onTrackEnd() {
+                    this.pause();
+                    this.simulatedCurrentTime = 0;
+                    this.updateSimulatedProgress();
+                }
+            }
+        
+            // Initialize Music Player
+            let musicPlayer;
+        
+            function initializeMusicPlayer() {
+                musicPlayer = new MusicPlayer();
+            }
+        
+            // Show Music Player
+            function showMusicPlayer() {
+                setTimeout(() => {
+                    $('#musicPlayer').addClass('visible');
+                }, 500);
+            }
+        
+            // Mobile Menu Toggle
+            function initMobileMenu() {
+                $mobileMenuBtn.on('click', function() {
+                    $mobileMenu.toggleClass('active');
+                    const $icon = $mobileMenuBtn.find('i');
+                    
+                    if ($mobileMenu.hasClass('active')) {
+                        $icon.removeClass('fa-bars').addClass('fa-times');
+                    } else {
+                        $icon.removeClass('fa-times').addClass('fa-bars');
+                    }
+                });
+        
+                // Close mobile menu when clicking on links
+                $mobileMenu.find('a').on('click', function() {
+                    $mobileMenu.removeClass('active');
+                    const $icon = $mobileMenuBtn.find('i');
+                    $icon.removeClass('fa-times').addClass('fa-bars');
+                });
+            }
+        
+            // Hero Animations (Enhanced Pop-in)
+            function initHeroAnimations() {
+                const tl = gsap.timeline();
+                tl.fromTo('.name-chinese', {
+                    y: -50,
+                    opacity: 0,
+                    scale: 0.7
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.7,
+                    ease: 'back.out(1.7)'
+                })
+                .fromTo('.word', {
+                    y: 100,
+                    opacity: 0,
+                    scale: 0.7,
+                    rotationX: -90
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    rotationX: 0,
+                    duration: 0.7,
+                    ease: 'back.out(1.7)',
+                    stagger: 0.15
+                }, '-=0.3')
+                .fromTo('#heroSubtitle', {
+                    y: 50,
+                    opacity: 0,
+                    scale: 0.7
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)'
+                }, '-=0.2')
+                .fromTo('#heroDescription', {
+                    y: 30,
+                    opacity: 0,
+                    scale: 0.7
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)'
+                }, '-=0.2')
+                .fromTo('.cta-primary, .cta-secondary', {
+                    scale: 0.7,
+                    opacity: 0
+                }, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: 'back.out(2)',
+                    stagger: 0.1
+                }, '-=0.2')
+                .fromTo('.code-block', {
+                    y: 100,
+                    opacity: 0,
+                    scale: 0.7,
+                    rotationY: 45
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    rotationY: 0,
+                    duration: 0.7,
+                    ease: 'back.out(1.7)',
+                    stagger: 0.2
+                }, '-=0.1')
+                .fromTo('.shape', {
+                    scale: 0,
+                    opacity: 0
+                }, {
+                    scale: 1,
+                    opacity: 0.1,
+                    duration: 1.2,
+                    ease: 'elastic.out(1, 0.3)',
+                    stagger: 0.15
+                }, '-=0.5');
+            }
+        
+            // Loading Screen Animation (trigger enhanced hero pop-in after progress bar)
+            function initLoadingScreen() {
+                const $loadingScreen = $('#loadingScreen');
+                const $loadingText = $('.loading-text');
+                const $progressBar = $('.loading-progress-bar');
+                const $progressContainer = $('.loading-progress');
+        
+                // Animate loading text
+                gsap.to($loadingText[0], {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+                gsap.to($loadingText[0], {
+                    text: 'Initializing Security Protocols...',
+                    duration: 1,
+                    delay: 0.5,
+                    ease: 'none'
+                });
+                gsap.to($loadingText[0], {
+                    text: 'Loading Portfolio...',
+                    duration: 1,
+                    delay: 1.5,
+                    ease: 'none'
+                });
+                // Fade in progress bar container
+                gsap.to($progressContainer[0], {
+                    opacity: 1,
+                    duration: 0.5,
+                    delay: 1.5
+                });
+                // Animate progress bar width to 100%
+                gsap.to($progressBar[0], {
+                    width: '100%',
+                    duration: 2,
+                    delay: 1.8,
+                    ease: 'power2.inOut',
+                    onComplete: function() {
+                        // Fade out loading screen and trigger hero pop-in
+                        gsap.to($loadingScreen[0], {
+                            opacity: 0,
+                            duration: 0.5,
+                            delay: 0.2,
+                            ease: 'power2.inOut',
+                            onComplete: function() {
+                                $loadingScreen.addClass('hidden');
+                                initAnimations();
+                                showMusicPlayer(); // Show music player after loading
+                            }
+                        });
+                    }
+                });
+            }
+        
+            // Custom Cursor
+            function initCustomCursor() {
+                if ($(window).width() <= 768) return;
+                
+                $(document).on('mousemove', function(e) {
+                    gsap.to($cursor[0], {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: 0.1
+                    });
+                    
+                    gsap.to($cursorFollower[0], {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: 0.3
+                    });
+                });
+                
+                // Interactive elements
+                const $interactiveElements = $('a, button, .cert-card, .skill-item, .project-card');
+                
+                $interactiveElements.on('mouseenter', function() {
+                    gsap.to($cursor[0], {
+                        scale: 2,
+                        backgroundColor: 'var(--accent)',
+                        duration: 0.3
+                    });
+                });
+                
+                $interactiveElements.on('mouseleave', function() {
+                    gsap.to($cursor[0], {
+                        scale: 1,
+                        backgroundColor: 'var(--text-main)',
+                        duration: 0.3
+                    });
+                });
+            }
+        
+            // Scroll Effects
+            function initScrollEffects() {
+                $(window).on('scroll', function() {
+                    const scrolled = $(window).scrollTop();
+                    const maxScroll = $(document).height() - $(window).height();
+                    const scrollPercent = (scrolled / maxScroll) * 100;
+                    
+                    // Update scroll progress
+                    gsap.to($scrollProgress[0], {
+                        scaleX: scrollPercent / 100,
+                        duration: 0.1
+                    });
+                });
+            }
+        
+            // Smooth Scrolling
+            function initSmoothScrolling() {
+                $('a[href^="#"]').on('click', function(e) {
+                    e.preventDefault();
+                    const targetId = $(this).attr('href');
+                    const $targetElement = $(targetId);
+                    
+                    if ($targetElement.length) {
+                        const offsetTop = $targetElement.offset().top - 80; // Account for navbar height
+                        $('html, body').animate({
+                            scrollTop: offsetTop
+                        }, 800);
+                    }
+                });
+            }
+        
+            // About Section Animations
+            function initAboutAnimations() {
+                // Stats counter animation
+                $('.stat-number').each(function() {
+                    const $stat = $(this);
+                    const finalValue = $stat.text();
+                    $stat.text('0');
+                    
+                    ScrollTrigger.create({
+                        trigger: this,
+                        start: "top 80%",
+                        onEnter: function() {
+                            gsap.to($stat[0], {
+                                textContent: finalValue,
+                                duration: 2,
+                                ease: "power2.out",
+                                snap: { textContent: 1 },
+                                stagger: 0.2
+                            });
+                        }
+                    });
+                });
+        
+                // About text animation
+                gsap.fromTo('.about-text p', {
+                    y: 50,
+                    opacity: 0
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    scrollTrigger: {
+                        trigger: '.about-text',
+                        start: "top 85%",
+                        end: "bottom 15%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            }
+        
+            // Certifications Animations
+            function initCertificationsAnimations() {
+                $('.cert-card').each(function(index) {
+                    const card = this;
+                    
+                    // Card entrance animation
+                    gsap.fromTo(card, {
+                        y: 80,
+                        opacity: 0,
+                        scale: 0.8
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.8,
+                        ease: "back.out(1.7)",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                });
+            }
+        
+            // Skills Animations
+            function initSkillsAnimations() {
+                $('.skill-item').each(function(index) {
+                    const $item = $(this);
+                    const $progressBar = $item.find('.skill-progress');
+                    const skillLevel = $item.data('skill');
+                    
+                    // Skill item entrance animation
+                    gsap.fromTo(this, {
+                        y: 50,
+                        opacity: 0,
+                        scale: 0.8
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.8,
+                        ease: "back.out(1.7)",
+                        scrollTrigger: {
+                            trigger: this,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                    
+                    // Progress bar animation
+                    gsap.to($progressBar[0], {
+                        width: skillLevel + '%',
+                        duration: 1.5,
+                        ease: "power2.out",
+                        delay: 0.3,
+                        scrollTrigger: {
+                            trigger: this,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                });
+            }
+        
+            // Projects Animations
+            function initProjectsAnimations() {
+                $('.project-card').each(function(index) {
+                    // Card entrance animation
+                    gsap.fromTo(this, {
+                        y: 100,
+                        opacity: 0,
+                        rotationY: 15
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        rotationY: 0,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: this,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                });
+            }
+        
+            // Section Titles Animation
+            function initSectionTitles() {
+                $('.section-title').each(function() {
+                    gsap.fromTo(this, {
+                        y: 50,
+                        opacity: 0,
+                        scale: 0.8
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        scale: 1,
+                        duration: 1,
+                        ease: "back.out(1.7)",
+                        scrollTrigger: {
+                            trigger: this,
+                            start: "top 85%",
+                            end: "bottom 15%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                });
+            }
+        
+            // Certificate Card Hover Effects
+            function initCertificateHoverEffects() {
+                $('.cert-card').on('mouseenter', function() {
+                    gsap.to(this, {
+                        y: -10,
+                        scale: 1.02,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }).on('mouseleave', function() {
+                    gsap.to(this, {
+                        y: 0,
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            }
+        
+            // Parallax Effect for Hero Background
+            function initParallaxEffect() {
+                const $shapes = $('.shape');
+                
+                $(window).on('scroll', function() {
+                    const scrolled = $(window).scrollTop();
+                    const rate = scrolled * -0.5;
+                    
+                    $shapes.each(function(index) {
+                        const speed = (index + 1) * 0.1;
+                        gsap.to(this, {
+                            y: rate * speed,
+                            duration: 0.1
+                        });
+                    });
+                });
+            }
+        
+            // Add certificate verification popup
+            function initCertificateVerification() {
+                $('.cert-verify').each(function() {
+                    const $link = $(this);
+                    
+                    if ($link.attr('href') !== '#') {
+                        $link.on('click', function(e) {
+                            e.preventDefault();
+                            
+                            // Create popup effect
+                            const $popup = $(`
+                                <div style="
+                                    position: fixed;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    background: var(--secondary-bg);
+                                    color: var(--text-main);
+                                    padding: 2rem;
+                                    border-radius: 15px;
+                                    border: 2px solid var(--accent);
+                                    z-index: 10000;
+                                    text-align: center;
+                                    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+                                    max-width: 400px;
+                                ">
+                                    <h3 style="color: var(--text-main); margin-bottom: 1rem;">Certificate Verification</h3>
+                                    <p style="margin-bottom: 1.5rem;">Opening Coursera verification page...</p>
+                                    <button style="
+                                        background: var(--gradient-accent);
+                                        color: var(--text-main);
+                                        border: none;
+                                        padding: 0.5rem 1rem;
+                                        border-radius: 25px;
+                                        cursor: pointer;
+                                        font-weight: 600;
+                                    ">Close</button>
+                                </div>
+                            `);
+                            
+                            $popup.find('button').on('click', function() {
+                                $popup.remove();
+                            });
+                            
+                            $('body').append($popup);
+                            
+                            gsap.fromTo($popup[0], {
+                                scale: 0,
+                                opacity: 0
+                            }, {
+                                scale: 1,
+                                opacity: 1,
+                                duration: 0.3,
+                                ease: "back.out(1.7)"
+                            });
+                            
+                            setTimeout(function() {
+                                window.open($link.attr('href'), '_blank');
+                                $popup.remove();
+                            }, 1500);
+                        });
+                    }
+                });
+            }
+        
+            // Initialize all animations
+            function initAnimations() {
+                initMobileMenu();
+                initCustomCursor();
+                initScrollEffects();
+                initSmoothScrolling();
+                initHeroAnimations();
+                initAboutAnimations();
+                initCertificationsAnimations();
+                initSkillsAnimations();
+                initProjectsAnimations();
+                initSectionTitles();
+                initCertificateHoverEffects();
+                initParallaxEffect();
+                initCertificateVerification();
+                
+                // Initialize music player after animations
+                setTimeout(initializeMusicPlayer, 1000);
+            }
+        
+            // Performance optimization
+            function optimizePerformance() {
+                // Reduce motion for users who prefer it
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    gsap.globalTimeline.timeScale(0.1);
+                }
+                
+                // Optimize for low-end devices
+                const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                const memory = navigator.deviceMemory || 4;
+                
+                if (memory < 2 || (connection && connection.effectiveType?.includes('2g'))) {
+                    gsap.globalTimeline.timeScale(2);
+                    $('.floating-shapes').hide();
+                }
+            }
+        
+            // Add typing effect to hero description
+            function initTypingEffect() {
+                const $description = $('#heroDescription');
+                const text = $description.text();
+                $description.text('');
+                
+                setTimeout(function() {
+                    gsap.to($description[0], {
+                        text: text,
+                        duration: 2,
+                        ease: "none",
+                        delay: 1.5
+                    });
+                }, 1000);
+            }
+        
+            // Initialize everything when DOM is loaded
+            optimizePerformance();
+            initLoadingScreen();
+            initTypingEffect();
+        
+            // Resize handler
+            $(window).on('resize', function() {
+                ScrollTrigger.refresh();
+                
+                // Close mobile menu on resize
+                if ($(window).width() > 768) {
+                    $mobileMenu.removeClass('active');
+                    const $icon = $mobileMenuBtn.find('i');
+                    $icon.removeClass('fa-times').addClass('fa-bars');
+                }
+            });
+        
+            // Keyboard navigation
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    $('body').addClass('keyboard-nav');
+                }
+                
+                // Easter egg: Press 'S' for security mode
+                if (e.key.toLowerCase() === 's' && e.ctrlKey) {
+                    e.preventDefault();
+                    $('body').css('filter', 'hue-rotate(120deg)');
+                    setTimeout(function() {
+                        $('body').css('filter', 'none');
+                    }, 2000);
+                }
+        
+                // Press 'Escape' to close mobile menu
+                if (e.key === 'Escape') {
+                    $mobileMenu.removeClass('active');
+                    const $icon = $mobileMenuBtn.find('i');
+                    $icon.removeClass('fa-times').addClass('fa-bars');
+                }
+            });
+        
+            $(document).on('mousedown', function() {
+                $('body').removeClass('keyboard-nav');
+            });
+        
+            // Add security-themed console message
+            console.log(`
+                🛡️ SECURITY PORTFOLIO 🛡️
+                
+                吳哲翰 (ren)
+                Cybersecurity Enthusiast & Security Researcher
+                
+                🎓 Google Certified in:
+                ✓ Foundations of Cybersecurity
+                ✓ Security Risk Management  
+                ✓ Network Security
+                ✓ Linux & SQL
+                ✓ Vulnerability Assessment
+                
+                🔗 GitHub: github.com/xireno
+                📧 Featured Projects: VMC2, Endpoint Scanner
+                
+                🔒 Passionate about ethical hacking and security research 🔒
+                `);
+        
+            // Add smooth scroll behavior for older browsers
+            if (!CSS.supports('scroll-behavior', 'smooth')) {
+                $('a[href^="#"]').on('click', function(e) {
+                    e.preventDefault();
+                    const $target = $($(this).attr('href'));
+                    if ($target.length) {
+                        const offsetTop = $target.offset().top - 80;
+                        $('html, body').animate({
+                            scrollTop: offsetTop
+                        }, 800);
+                    }
+                });
+            }
+        
+            // Add intersection observer for navbar visibility
+            const heroSection = $('#hero')[0];
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        $navbar.css('background', 'rgba(242, 242, 242, 0.5)');
+                    } else {
+                        $navbar.css('background', 'rgba(242, 242, 242, 0.95)');
+                    }
+                });
+            }, { threshold: 0.1 });
+        
+            observer.observe(heroSection);
+        
+            // Add project card click to GitHub
+            $('.project-card').on('click', function(e) {
+                if (!$(e.target).closest('a').length) {
+                    const $githubLink = $(this).find('.link-github');
+                    if ($githubLink.length) {
+                        window.open($githubLink.attr('href'), '_blank');
+                    }
+                }
+            });
+        
+            // Add scroll to top functionality
+            const $scrollToTopBtn = $(`
+                <button style="
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 2rem;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: var(--gradient-accent);
+                    color: var(--text-main);
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                    z-index: 1000;
+                    opacity: 0;
+                    transform: translateY(100px);
+                    transition: all 0.3s ease;
+                    box-shadow: 0 5px 15px rgba(182, 176, 159, 0.3);
+                "><i class="fas fa-arrow-up"></i></button>
+            `);
+        
+            $('body').append($scrollToTopBtn);
+        
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > 500) {
+                    $scrollToTopBtn.css({
+                        'opacity': '1',
+                        'transform': 'translateY(0)'
+                    });
+                } else {
+                    $scrollToTopBtn.css({
+                        'opacity': '0',
+                        'transform': 'translateY(100px)'
+                    });
+                }
+            });
+        
+            $scrollToTopBtn.on('click', function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
+            });
+        
+            // Add hover effect for scroll to top button
+            $scrollToTopBtn.on('mouseenter', function() {
+                $(this).css('transform', 'translateY(-5px) scale(1.1)');
+            }).on('mouseleave', function() {
+                $(this).css('transform', 'translateY(0) scale(1)');
+            });
+        
+            // Error handling for missing audio file
+            $('#audioPlayer').on('error', function() {
+                console.log('Audio file not found - using simulated playback for demo');
+            });
+        });
+        </script>
+        
+</body>
+</html>
+
